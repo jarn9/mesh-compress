@@ -11,7 +11,7 @@ fn main() {
 
     // Large example
     let mesh3 = load_mesh::from_obj("src/in/angel.obj"); //
-    save_mesh::to_binary("src/out/angel.dat", &mesh3);
-    let mesh4 = load_mesh::from_binary("src/out/angel.dat");
+    save_mesh::to_binary("src/out/angel.cbm", &mesh3);
+    let mesh4 = load_mesh::from_binary("src/out/angel.cbm");
     save_mesh::to_obj("src/out/angel.obj", &mesh4);
 }

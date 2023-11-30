@@ -43,7 +43,7 @@ pub fn to_binary(filepath: &str, mesh: &Mesh) {
 
     // write the number of faces as u64
     file.write(&(faces.len() as u64).to_le_bytes()).unwrap();
-    for (_, face) in faces.iter().enumerate() {
+    for face in faces.iter() {
         let ser_type_0: u8; // based on the difference between index
         if face[0] <= u8::MAX as u32 {
             ser_type_0 = first_face_serialization::U8;
@@ -136,5 +136,28 @@ pub fn to_obj(filepath: &str, mesh: &Mesh) {
             write!(file, " {}", idx).unwrap();
         }
         write!(file, "\n").unwrap();
+    }
+}
+
+pub fn to_raw_binary(filepath: &str, mesh: &Mesh) {
+    // dump all positions
+    // dump first index of face, then the difference between the first index and the second and third
+    let positions = &mesh.positions;
+    let faces = &mesh.faces;
+
+    let mut file = File::create(filepath).unwrap();
+
+    file.write(&(positions.len() as u64).to_le_bytes()).unwrap();
+    for point in positions {
+        file.write(&point[0].to_le_bytes()).unwrap();
+        file.write(&point[1].to_le_bytes()).unwrap();
+        file.write(&point[2].to_le_bytes()).unwrap();
+    }
+
+    file.write(&(faces.len() as u64).to_le_bytes()).unwrap();
+    for face in faces.iter() {
+        file.write(&(face[0] as u32).to_le_bytes()).unwrap();
+        file.write(&(face[1] as u32).to_le_bytes()).unwrap();
+        file.write(&(face[2] as u32).to_le_bytes()).unwrap();
     }
 }
