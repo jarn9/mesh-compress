@@ -1,6 +1,6 @@
 # mesh-compress
 
-Binary format for serializing surface meshes.
+Binary compression for serializing surface meshes.
 
 ## Example:
 
