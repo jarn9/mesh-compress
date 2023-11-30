@@ -8,7 +8,6 @@ A method for serializing surface meshes that is more space-efficient.
 UInt64: Number of Vertices
 for each vertex:
     Float32: x, Float32: y, Float32: z
-end for
 UInt64: Number of Faces
 for each face:
     8 bit face header
